@@ -17,25 +17,27 @@ class ListingScreen extends StatelessWidget {
                 ..add(GetAllProductsEvent()),
 
       child: Scaffold(
-        body: BlocBuilder<ListingBloc, ListingState>(
-          builder: (context, state) {
-            if (state is ProductLoadingState) {
-              return Center(child: CircularProgressIndicator());
-            } else if (state is ProductErrorState) {
-              return Center(child: Text('Something Went Wrong'));
-            } else if (state is ProductListingState) {
-              if (state.products.isEmpty) {
-                return Center(child: Text('No Product Found'));
+        body: SafeArea(
+          child: BlocBuilder<ListingBloc, ListingState>(
+            builder: (context, state) {
+              if (state is ProductLoadingState) {
+                return Center(child: CircularProgressIndicator());
+              } else if (state is ProductErrorState) {
+                return Center(child: Text('Something Went Wrong'));
+              } else if (state is ProductListingState) {
+                if (state.products.isEmpty) {
+                  return Center(child: Text('No Product Found'));
+                }
+                return ListView.builder(
+                  itemCount: state.products.length,
+                  itemBuilder: (context, index) {
+                    return Card(child: Text(state.products[index].title));
+                  },
+                );
               }
-              return ListView.builder(
-                itemCount: state.products.length,
-                itemBuilder: (context, index) {
-                  return Card(child: Text(state.products[index].title));
-                },
-              );
-            }
-            return Center(child: Text('Something is not getting'));
-          },
+              return Center(child: Text('Something is not getting'));
+            },
+          ),
         ),
       ),
     );
