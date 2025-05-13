@@ -10,16 +10,16 @@ class NetworkService {
   late Logger _logger;
 
   NetworkService() {
-    late final _headers = {'Content-Type': NetworkConstants.contentType};
+    late final headers = {'Content-Type': NetworkConstants.contentType};
 
-    final BaseOptions _baseOptions = BaseOptions(
+    final BaseOptions baseOptions = BaseOptions(
       baseUrl: NetworkConstants.baseUrl,
-      headers: _headers,
+      headers: headers,
       connectTimeout: NetworkConstants.connectTimeout,
       receiveTimeout: NetworkConstants.recieveTimeout,
     );
 
-    _dio = Dio(_baseOptions);
+    _dio = Dio(baseOptions);
     _logger = Logger();
 
     _initInterceptors();

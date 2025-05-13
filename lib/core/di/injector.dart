@@ -26,7 +26,7 @@ class Injector {
       () => ListingUsecase(injectorInstatnce<ListingRepository>()),
     );
 
-    injectorInstatnce.registerLazySingleton<ListingBloc>(
+    injectorInstatnce.registerFactory<ListingBloc>(
       () => ListingBloc(injectorInstatnce<ListingUsecase>()),
     );
   }
